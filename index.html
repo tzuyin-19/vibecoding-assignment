@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#e9eef3" />
+  <meta name="description" content="領取一段奇怪又可愛的小夢。" />
+  <title>Dream Vending Machine | 夢境販賣機</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="header">
+      <a class="brand" href="#" id="brand" aria-label="夢境販賣機首頁"><span class="brand-mark">◕‿◕</span><span>little dream<span class="brand-dot">.</span></span></a>
+      <span class="header-tag">a tiny story machine ✳</span>
+    </header>
+
+    <main>
+      <section id="setup-screen" class="screen setup-screen" aria-labelledby="hero-title">
+        <div class="intro">
+          <div class="eyebrow">✳ WELCOME TO THE DREAM SHOP ✳</div>
+          <h1 id="hero-title">夢境<span>販賣機</span><span class="h1-spark">✦</span></h1>
+          <p>今天晚上，想做什麼夢？<br>投下一點好奇心，帶走一段奇怪又可愛的小冒險。</p>
+        </div>
+        <div class="home-layout">
+          <div class="home-display" aria-label="小夢和夢境販賣機">
+            <div class="room-window"><div class="room-sky"><i></i><i></i><i></i></div></div>
+            <div class="room-poster">TODAY<br>IS A GOOD<br>DAY <span>♥</span></div>
+            <div class="room-shelf"><span>▥</span><span>▤</span><span>▯</span></div>
+            <div class="home-floor"></div>
+            <div class="plant"><div class="plant-leaves">✦</div><div class="plant-pot"></div></div>
+            <div class="machine" id="machine">
+              <div class="machine-top">DREAM<br><small>VENDING MACHINE</small></div>
+              <div class="machine-window"><span class="capsule cap1">♥</span><span class="capsule cap2">✿</span><span class="capsule cap3">★</span><span class="capsule cap4">☁</span><span class="capsule cap5">✦</span><span class="capsule cap6">♫</span></div>
+              <div class="machine-side"><span class="machine-indicator"></span><span class="machine-button"></span><span class="machine-coin">──</span></div>
+              <div class="machine-chute"><span id="drop-capsule" class="drop-capsule" aria-hidden="true">★</span></div>
+              <div class="machine-feet"></div>
+            </div>
+            <div class="mascot home-mascot" aria-label="小夢，小小藍色公仔"><span class="antenna"></span><span class="mascot-body"><span class="face"><i class="eye left"></i><i class="eye right"></i><i class="blush bleft"></i><i class="blush bright"></i><i class="mouth"></i></span></span><span class="arm left"></span><span class="arm right"></span><span class="leg left"></span><span class="leg right"></span></div>
+            <div class="little-message">你好呀！<span>♡</span></div>
+          </div>
+          <form id="dream-form" class="control-card">
+            <span class="card-eyebrow">CUSTOMIZE YOUR DREAM</span>
+            <h2>你的夢境訂單 <span>✎</span></h2>
+            <p class="control-hint">選一個目的地，剩下的交給夢境販賣機。</p>
+            <fieldset><legend>01　今天去哪裡？</legend><div class="option-grid scene-options">
+              <label><input type="radio" name="scene" value="random" checked><span>🎲<small>隨機驚喜</small></span></label>
+              <label><input type="radio" name="scene" value="forest"><span>🌲<small>森林小木屋</small></span></label>
+              <label><input type="radio" name="scene" value="castle"><span>🏰<small>雲之城堡</small></span></label>
+              <label><input type="radio" name="scene" value="ruins"><span>🏛️<small>神祕遺跡</small></span></label>
+            </div></fieldset>
+            <fieldset><legend>02　想要什麼氣氛？</legend><div class="option-grid tone-options">
+              <label><input type="radio" name="tone" value="random" checked><span>🎁<small>都可以</small></span></label>
+              <label><input type="radio" name="tone" value="funny"><span>😆<small>有點搞笑</small></span></label>
+              <label><input type="radio" name="tone" value="warm"><span>🧡<small>暖暖的</small></span></label>
+            </div></fieldset>
+            <button class="primary-btn" type="submit">領取我的夢境 <span>↗</span></button>
+            <p class="microcopy">✳ 不需登入・每個夢大約 20 秒</p>
+          </form>
+        </div>
+      </section>
+
+      <section id="play-screen" class="screen play-screen hidden" aria-labelledby="play-title">
+        <div class="play-heading"><div><div class="eyebrow">✳ LITTLE DREAM THEATRE</div><h2 id="play-title">夢境正在製作中...</h2></div><button id="back-button" type="button" class="text-button">← 返回設定</button></div>
+        <div class="stage-frame">
+          <div id="stage" class="stage stage-vending" aria-label="夢境動畫舞台">
+            <div class="stage-sky"><span class="cloud a"></span><span class="cloud b"></span></div>
+            <div class="stage-land"></div>
+            <div class="background-set">
+              <div class="set-forest"><div class="tree t1"></div><div class="tree t2"></div><div class="cottage"><div class="roof"></div><div class="cottage-wall"><span class="window-light"></span><span class="door"></span></div></div><div class="bush bu1"></div><div class="bush bu2"></div></div>
+              <div class="set-castle"><div class="castle-tower ct1"></div><div class="castle-tower ct2"></div><div class="castle-main"><div class="castle-door"></div><span class="castle-flag">⚑</span></div><div class="castle-cloud c1"></div><div class="castle-cloud c2"></div></div>
+              <div class="set-ruins"><div class="ruin-column col1"></div><div class="ruin-column col2"></div><div class="ruin-arch"></div><div class="ruin-steps"></div><div class="ruin-vines">✿</div></div>
+            </div>
+            <div id="stage-vending-art" class="stage-vending-art">✳ <span>你的夢境正在打包...</span></div>
+            <div id="actor" class="stage-actor mascot"><span class="antenna"></span><span class="mascot-body"><span class="face"><i class="eye left"></i><i class="eye right"></i><i class="blush bleft"></i><i class="blush bright"></i><i class="mouth"></i></span></span><span class="arm left"></span><span class="arm right"></span><span class="leg left"></span><span class="leg right"></span></div>
+            <div id="friend" class="friend" aria-hidden="true"><span id="friend-emoji">🍄</span></div>
+            <div id="speech" class="speech hidden" aria-live="polite"></div>
+            <div id="stage-label" class="stage-label">夢境扭蛋製作中</div>
+          </div>
+          <div class="stage-bottom"><span id="stage-chapter">正在抽取夢境...</span><div class="progress-track"><div id="progress-bar" class="progress-fill"></div></div><span id="stage-clock">00:00</span></div>
+        </div>
+        <div id="result-panel" class="result-panel hidden" aria-live="polite"><span class="result-stamp">DREAM COMPLETE ♡</span><h3 id="result-title">夢境結束啦！</h3><p id="result-copy"></p><div class="result-actions"><button type="button" class="primary-btn" id="replay-button">↻ 重播這個夢</button><button type="button" class="secondary-btn" id="again-button">✳ 再抽一個夢</button><button type="button" class="text-button" id="reset-button">返回設定</button></div></div>
+        <p class="footer-hint">每一個小夢，都是一次意想不到的相遇。</p>
+      </section>
+    </main>
+    <footer class="footer"><span>made with a little bit of daydreaming ☻</span><span>Dream Vending Machine · v1.0</span></footer>
+  </div>
+</body>
+</html>
