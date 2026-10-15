@@ -2,89 +2,256 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#e9eef3" />
-  <meta name="description" content="領取一段奇怪又可愛的小夢。" />
-  <title>Dream Vending Machine | 夢境販賣機</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="script.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f7f3ee" />
+  <title>Dream Vending Machine｜夢境販賣機</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script src="./script.js" defer></script>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="header">
-      <a class="brand" href="#" id="brand" aria-label="夢境販賣機首頁"><span class="brand-mark">◕‿◕</span><span>little dream<span class="brand-dot">.</span></span></a>
-      <span class="header-tag">a tiny story machine ✳</span>
+  <!-- 所有美術均為內嵌 SVG。三個檔案放在同一層就能運行，不必再傳圖片。 -->
+  <svg aria-hidden="true" class="svg-library" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="suit" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5f4ff"/><stop offset=".48" stop-color="#9fc7e5"/><stop offset="1" stop-color="#739dbf"/></linearGradient>
+      <linearGradient id="face" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#fffdf4"/><stop offset="1" stop-color="#ebdfd4"/></linearGradient>
+      <linearGradient id="machine" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5dff6"/><stop offset=".50" stop-color="#c2b6e1"/><stop offset="1" stop-color="#9787bc"/></linearGradient>
+      <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f5f9ff" stop-opacity=".95"/><stop offset="1" stop-color="#b9d3e4" stop-opacity=".78"/></linearGradient>
+      <linearGradient id="wood" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eebc8c"/><stop offset="1" stop-color="#bb7d59"/></linearGradient>
+      <linearGradient id="moss" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#acc8a8"/><stop offset="1" stop-color="#6a967e"/></linearGradient>
+      <linearGradient id="stone" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e6ded2"/><stop offset="1" stop-color="#afa99e"/></linearGradient>
+      <filter id="groundshadow"><feGaussianBlur stdDeviation="8"/></filter>
+
+      <!-- 小夢：有漸層與柔和陰影的原創微立體公仔 -->
+      <symbol id="art-dreamer" viewBox="0 0 220 275">
+        <ellipse cx="112" cy="257" rx="68" ry="12" fill="#56657b" opacity=".13"/>
+        <path d="M106 37V17" stroke="#688cae" stroke-width="9" stroke-linecap="round"/>
+        <circle cx="106" cy="14" r="12" fill="#f5deb0" stroke="#c8ad85" stroke-width="3"/>
+        <path d="M44 148C15 150 11 182 36 191L54 184" fill="#a3cbe8" stroke="#6689aa" stroke-width="4"/>
+        <path d="M178 150C211 154 209 185 184 192L170 184" fill="#83b0d4" stroke="#6689aa" stroke-width="4"/>
+        <rect x="65" y="215" width="33" height="38" rx="14" fill="#8db8d8" stroke="#688cac" stroke-width="4"/>
+        <rect x="130" y="215" width="31" height="38" rx="14" fill="#7da8cd" stroke="#688cac" stroke-width="4"/>
+        <path d="M36 143C36 83 67 46 113 46C166 46 193 94 190 155L184 204C181 238 157 244 112 244C64 244 38 232 36 196Z" fill="url(#suit)" stroke="#6386a8" stroke-width="4"/>
+        <path d="M55 73C71 55 103 50 118 51" fill="none" stroke="#f0fbff" stroke-width="10" stroke-linecap="round" opacity=".55"/>
+        <path d="M57 147C50 116 68 85 99 75C133 65 165 84 170 116C174 151 150 185 112 186C82 187 61 171 57 147Z" fill="url(#face)" stroke="#8398ad" stroke-width="3.5"/>
+        <ellipse cx="89" cy="124" rx="7" ry="9" fill="#3c4b55"/>
+        <ellipse cx="135" cy="124" rx="7" ry="9" fill="#3c4b55"/>
+        <circle cx="91" cy="120" r="2" fill="#fff"/><circle cx="137" cy="120" r="2" fill="#fff"/>
+        <ellipse cx="72" cy="143" rx="12" ry="6" fill="#e8a8b2" opacity=".67"/>
+        <ellipse cx="151" cy="143" rx="12" ry="6" fill="#e8a8b2" opacity=".67"/>
+        <path d="M106 145Q112 152 120 145" fill="none" stroke="#704f57" stroke-width="3.4" stroke-linecap="round"/>
+        <path d="M70 205Q111 219 152 202" fill="none" stroke="#d9f0ff" stroke-width="5" opacity=".46" stroke-linecap="round"/>
+        <circle cx="112" cy="215" r="7" fill="#efdaa8" stroke="#c9b482" stroke-width="2"/>
+      </symbol>
+
+      <!-- 販賣機 -->
+      <symbol id="art-vending" viewBox="0 0 310 470">
+        <ellipse cx="149" cy="452" rx="118" ry="11" fill="#63647b" opacity=".13"/>
+        <path d="M259 33L287 54V425L259 442Z" fill="#9589bb" stroke="#776d9d" stroke-width="4"/>
+        <rect x="31" y="29" width="232" height="411" rx="28" fill="url(#machine)" stroke="#8579aa" stroke-width="5"/>
+        <path d="M54 51C64 42 86 42 114 42" fill="none" stroke="#fff9ff" stroke-width="11" stroke-linecap="round" opacity=".57"/>
+        <rect x="51" y="53" width="194" height="59" rx="17" fill="#f9f5f4" stroke="#a298bd" stroke-width="4"/>
+        <text x="149" y="80" text-anchor="middle" font-size="23" font-weight="900" letter-spacing="3" fill="#8676ab">DREAM</text>
+        <text x="149" y="99" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="3" fill="#9d91b0">VENDING MACHINE</text>
+        <rect x="51" y="129" width="151" height="219" rx="20" fill="url(#glass)" stroke="#9d97bc" stroke-width="5"/>
+        <path d="M65 145H91L66 331H59Z" fill="#fff" opacity=".28"/>
+        <path d="M65 201H186M65 269H186" stroke="#98a9c2" stroke-width="4" opacity=".65"/>
+        <g stroke="#ddd5e6" stroke-width="2.5">
+          <circle cx="86" cy="170" r="21" fill="#ffe9c5"/><circle cx="148" cy="170" r="21" fill="#efc2d2"/>
+          <circle cx="86" cy="237" r="21" fill="#d9f0f1"/><circle cx="148" cy="237" r="21" fill="#f5ddba"/>
+          <circle cx="86" cy="305" r="21" fill="#d6d0f3"/><circle cx="148" cy="305" r="21" fill="#f8dae6"/>
+        </g>
+        <g font-size="26" text-anchor="middle" fill="#8b82ac"><text x="86" y="178">✿</text><text x="148" y="178">♡</text><text x="86" y="245">☁</text><text x="148" y="245">✦</text><text x="86" y="313">◡</text><text x="148" y="313">✿</text></g>
+        <rect x="211" y="137" width="37" height="144" rx="16" fill="#e9e2f3" stroke="#9a8cad" stroke-width="3"/>
+        <rect x="217" y="150" width="25" height="35" rx="8" fill="#8e86aa"/>
+        <circle cx="229" cy="220" r="15" fill="#fff0c4" stroke="#b7a0a7" stroke-width="3"/>
+        <circle cx="224" cy="215" r="5" fill="#fff" opacity=".8"/>
+        <rect x="68" y="365" width="156" height="56" rx="16" fill="#938bb0" stroke="#7a7199" stroke-width="4"/>
+        <rect x="87" y="374" width="117" height="32" rx="10" fill="#55577a"/>
+        <rect x="94" y="379" width="103" height="10" rx="5" fill="#4a4b66"/>
+        <circle cx="226" cy="321" r="10" fill="#eee2ff" opacity=".9"/>
+        <path d="M226 313V329M218 321H234" stroke="#a094c0" stroke-width="3"/>
+      </symbol>
+
+      <!-- 三幅微立體風格背景，沒有華麗星空 -->
+      <symbol id="art-forest" viewBox="0 0 1000 560">
+        <rect width="1000" height="560" fill="#e4eee4"/>
+        <circle cx="825" cy="110" r="78" fill="#fff5d6" opacity=".72"/>
+        <path d="M0 320Q260 210 530 312T1000 300V560H0Z" fill="#c6d9c0"/>
+        <path d="M0 410Q350 327 630 384T1000 369V560H0Z" fill="#a7c5a8"/>
+        <g fill="#7f9f83"><path d="M55 342l80-206 91 206Z"/><path d="M10 371l84-169 83 169Z"/><path d="M770 316l92-218 105 218Z"/><path d="M851 347l80-189 86 189Z"/></g>
+        <g fill="#a0baa0"><path d="M60 314l65-157 62 157Z"/><path d="M801 291l61-148 67 148Z"/></g>
+        <rect x="94" y="335" width="27" height="96" rx="9" fill="#8e806b"/>
+        <path d="M340 270L501 159L660 270V424H340Z" fill="url(#wood)" stroke="#a36d52" stroke-width="7" stroke-linejoin="round"/>
+        <path d="M306 278L498 143L690 278" fill="none" stroke="#886353" stroke-width="37" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M322 270L500 151L675 270" fill="none" stroke="#bd8b70" stroke-width="20" stroke-linejoin="round" stroke-linecap="round"/>
+        <rect x="471" y="325" width="77" height="101" rx="35" fill="#886857" stroke="#f1d7b0" stroke-width="7"/>
+        <circle cx="528" cy="379" r="5" fill="#f0d39a"/>
+        <rect x="375" y="306" width="63" height="53" rx="9" fill="#fff0c5" stroke="#916d5e" stroke-width="9"/>
+        <path d="M407 312V358M377 331H438" stroke="#ad8f78" stroke-width="6"/>
+        <path d="M353 375V407M374 375V407M598 329V362" stroke="#b78057" stroke-width="7" opacity=".65"/>
+        <path d="M0 451Q290 407 526 467T1000 452V560H0Z" fill="#8db193"/>
+        <path d="M437 560Q493 453 504 425Q547 486 585 560" fill="#d7c9aa" opacity=".8"/>
+        <g fill="#f5d6ac" stroke="#c48073" stroke-width="4"><path d="M238 443q5-32 26-32t29 32Z"/><path d="M715 463q5-29 26-29t29 29Z"/></g>
+        <g fill="#eee4cf"><rect x="255" y="444" width="17" height="28" rx="7"/><rect x="731" y="462" width="15" height="24" rx="6"/></g>
+      </symbol>
+      <symbol id="art-castle" viewBox="0 0 1000 560">
+        <rect width="1000" height="560" fill="#daeaf0"/>
+        <circle cx="820" cy="107" r="70" fill="#f8e8c8" opacity=".6"/>
+        <g fill="#f5f7f2" opacity=".8"><ellipse cx="124" cy="152" rx="132" ry="30"/><ellipse cx="209" cy="152" rx="88" ry="25"/><ellipse cx="801" cy="194" rx="155" ry="34"/><ellipse cx="901" cy="194" rx="100" ry="26"/></g>
+        <path d="M0 413Q135 357 236 405T476 400T743 393T1000 394V560H0Z" fill="#f8f8ee"/>
+        <path d="M0 467Q220 406 425 454T1000 446V560H0Z" fill="#e4edf0"/>
+        <g stroke="#9aafbf" stroke-width="7"><rect x="370" y="228" width="272" height="217" rx="8" fill="#e9e9ed"/><rect x="303" y="183" width="97" height="261" rx="7" fill="#d7dce8"/><rect x="609" y="179" width="99" height="266" rx="7" fill="#d3d9e6"/></g>
+        <g fill="#b9c4dc"><path d="M289 193l63-112 64 112Z"/><path d="M598 188l62-111 61 111Z"/><path d="M427 234l73-131 77 131Z"/></g>
+        <path d="M468 445v-103a33 33 0 0 1 66 0v103" fill="#9e9db5"/>
+        <rect x="336" y="270" width="32" height="56" rx="16" fill="#8b9fbd"/><rect x="637" y="268" width="34" height="57" rx="16" fill="#8b9fbd"/>
+        <rect x="480" y="268" width="41" height="47" rx="19" fill="#a5b5cd"/>
+        <path d="M352 80V51M662 75V44M500 100V68" stroke="#9589aa" stroke-width="6"/>
+        <path d="M352 53l54 14-54 15ZM662 46l45 15-45 14ZM500 68l49 14-49 12Z" fill="#edb7ae"/>
+        <g fill="#fffdf5"><ellipse cx="227" cy="446" rx="150" ry="42"/><ellipse cx="313" cy="452" rx="131" ry="48"/><ellipse cx="744" cy="458" rx="171" ry="49"/><ellipse cx="854" cy="446" rx="145" ry="43"/></g>
+      </symbol>
+      <symbol id="art-ruins" viewBox="0 0 1000 560">
+        <rect width="1000" height="560" fill="#e7e5d8"/>
+        <circle cx="795" cy="109" r="72" fill="#f7e7c9" opacity=".56"/>
+        <path d="M0 350Q240 251 440 323T1000 315V560H0Z" fill="#cdd2bc"/>
+        <path d="M0 426Q250 359 477 410T1000 385V560H0Z" fill="#b1c3aa"/>
+        <g stroke="#aaa79a" stroke-width="6" fill="url(#stone)">
+          <rect x="223" y="223" width="94" height="225" rx="9"/><rect x="671" y="216" width="91" height="229" rx="9"/>
+          <rect x="195" y="202" width="145" height="29" rx="6"/><rect x="646" y="191" width="144" height="31" rx="6"/>
+          <path d="M372 266V187Q492 118 607 185V266Z"/>
+          <rect x="383" y="274" width="223" height="168" rx="13"/>
+        </g>
+        <path d="M441 436V341a52 52 0 0 1 105 0v95" fill="#989e91"/>
+        <path d="M414 227h158M244 275h55M689 262h54M243 360h57M684 359h58" stroke="#aaa79b" stroke-width="5"/>
+        <path d="M211 208q25 19 20 80m83-61q-16 46-11 71M743 201q-13 33-4 86" fill="none" stroke="#7eab81" stroke-width="10" stroke-linecap="round"/>
+        <g fill="#9bad8f"><ellipse cx="151" cy="427" rx="96" ry="28"/><ellipse cx="835" cy="429" rx="115" ry="35"/></g>
+        <path d="M0 473Q200 438 462 476T1000 463V560H0Z" fill="#99b09c"/>
+        <path d="M367 560L451 463H550L646 560" fill="#c6c4b7"/>
+        <path d="M431 497h146m-120 25h107" stroke="#a5a396" stroke-width="7"/>
+      </symbol>
+
+      <!-- 六個小配角，全部使用 SVG，不會顯示成 emoji 拼貼 -->
+      <symbol id="prop-lantern" viewBox="0 0 160 170">
+        <ellipse cx="80" cy="159" rx="39" ry="8" fill="#5f6a6a" opacity=".12"/>
+        <path d="M61 39q-2-25 19-25t19 25" fill="none" stroke="#8e7e78" stroke-width="9" stroke-linecap="round"/>
+        <rect x="38" y="40" width="84" height="100" rx="25" fill="#c9a68b" stroke="#967b6e" stroke-width="5"/>
+        <rect x="49" y="55" width="62" height="70" rx="24" fill="#fff0b5"/>
+        <ellipse cx="80" cy="95" rx="26" ry="30" fill="#ffda83" opacity=".55"/>
+        <ellipse cx="68" cy="88" rx="4.5" ry="6" fill="#665854"/><ellipse cx="92" cy="88" rx="4.5" ry="6" fill="#665854"/>
+        <path d="M74 105q6 6 12 0" fill="none" stroke="#725d59" stroke-width="3" stroke-linecap="round"/>
+        <rect x="47" y="128" width="66" height="12" rx="5" fill="#a98c7f"/>
+      </symbol>
+      <symbol id="prop-mushroom" viewBox="0 0 160 170">
+        <ellipse cx="80" cy="157" rx="48" ry="9" fill="#737269" opacity=".15"/>
+        <rect x="57" y="78" width="48" height="68" rx="21" fill="#f2e5cf" stroke="#b9a68f" stroke-width="4"/>
+        <path d="M19 91Q28 22 79 19Q133 20 143 91Q81 115 19 91Z" fill="#d78579" stroke="#ad716e" stroke-width="5"/>
+        <ellipse cx="52" cy="71" rx="13" ry="9" fill="#ffe3ce"/><ellipse cx="99" cy="53" rx="16" ry="11" fill="#ffe3ce"/><ellipse cx="117" cy="85" rx="9" ry="6" fill="#ffe3ce"/>
+        <circle cx="68" cy="113" r="4" fill="#695e59"/><circle cx="93" cy="113" r="4" fill="#695e59"/>
+        <path d="M76 125q5 5 10 0" fill="none" stroke="#695e59" stroke-width="3"/>
+      </symbol>
+      <symbol id="prop-cloud" viewBox="0 0 160 170">
+        <ellipse cx="80" cy="152" rx="51" ry="8" fill="#6e7e8d" opacity=".13"/>
+        <path d="M37 115C9 106 13 73 39 64C38 28 88 12 109 48C143 42 154 75 140 93C153 115 132 132 110 130H49C42 130 36 123 37 115Z" fill="#fffefa" stroke="#a6c0ce" stroke-width="5"/>
+        <ellipse cx="65" cy="89" rx="5" ry="7" fill="#53616b"/><ellipse cx="101" cy="89" rx="5" ry="7" fill="#53616b"/>
+        <path d="M76 103q7 5 13 0" stroke="#53616b" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <ellipse cx="49" cy="105" rx="12" ry="6" fill="#eeb9bc" opacity=".7"/><ellipse cx="117" cy="104" rx="12" ry="6" fill="#eeb9bc" opacity=".7"/>
+      </symbol>
+      <symbol id="prop-guard" viewBox="0 0 160 170">
+        <ellipse cx="80" cy="158" rx="40" ry="8" fill="#696779" opacity=".14"/>
+        <path d="M49 111q-22-23-4-51t49-25q33 4 39 35t-11 47q-13 27-41 27T49 111Z" fill="#f6e3a5" stroke="#c8ad7b" stroke-width="5"/>
+        <path d="M51 49L47 31L110 24L120 47Z" fill="#90a7c8" stroke="#728aac" stroke-width="5"/>
+        <rect x="44" y="45" width="82" height="11" rx="5" fill="#627c9c"/>
+        <circle cx="68" cy="87" r="5" fill="#5a5964"/><circle cx="96" cy="87" r="5" fill="#5a5964"/>
+        <path d="M74 106q7 6 14 0" stroke="#665c64" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M38 102L25 94M129 102l12-8" stroke="#bda477" stroke-width="9" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="prop-statue" viewBox="0 0 160 170">
+        <ellipse cx="80" cy="158" rx="50" ry="9" fill="#6e746d" opacity=".15"/>
+        <path d="M39 52q0-30 41-30t41 30v82H39Z" fill="#c6c8be" stroke="#979b92" stroke-width="5"/>
+        <rect x="28" y="132" width="105" height="20" rx="6" fill="#babbb1" stroke="#979b92" stroke-width="4"/>
+        <path d="M52 83q8-5 17 0M91 83q9-5 17 0" stroke="#656b65" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="81" cy="106" rx="8" ry="11" fill="#737b72"/>
+        <path d="M36 46l17-10M111 33l15 20" stroke="#e7e5db" stroke-width="8"/>
+      </symbol>
+      <symbol id="prop-pebble" viewBox="0 0 160 170">
+        <ellipse cx="79" cy="156" rx="52" ry="8" fill="#5f7065" opacity=".13"/>
+        <path d="M27 113Q16 83 43 54Q66 22 99 34Q138 40 140 90Q145 134 107 142Q50 151 27 113Z" fill="#adc5b6" stroke="#738e80" stroke-width="5"/>
+        <path d="M42 66q24-32 53-24" stroke="#e3efe3" stroke-width="10" stroke-linecap="round" fill="none" opacity=".7"/>
+        <circle cx="61" cy="89" r="5" fill="#53665c"/><circle cx="101" cy="89" r="5" fill="#53665c"/>
+        <path d="M73 108q9 7 17 0" stroke="#53665c" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <ellipse cx="49" cy="109" rx="11" ry="6" fill="#d5aeb5" opacity=".7"/><ellipse cx="115" cy="108" rx="11" ry="6" fill="#d5aeb5" opacity=".7"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <main class="app-shell">
+    <header class="brandline">
+      <div class="brandmark"><span class="logo-dot" aria-hidden="true"></span> dream vending machine <span class="brand-dot">·</span> <span>夢境販賣機</span></div>
+      <span class="brand-aside">a tiny dream, just for you.</span>
     </header>
 
-    <main>
-      <section id="setup-screen" class="screen setup-screen" aria-labelledby="hero-title">
-        <div class="intro">
-          <div class="eyebrow">✳ WELCOME TO THE DREAM SHOP ✳</div>
-          <h1 id="hero-title">夢境<span>販賣機</span><span class="h1-spark">✦</span></h1>
-          <p>今天晚上，想做什麼夢？<br>投下一點好奇心，帶走一段奇怪又可愛的小冒險。</p>
-        </div>
-        <div class="home-layout">
-          <div class="home-display" aria-label="小夢和夢境販賣機">
-            <div class="room-window"><div class="room-sky"><i></i><i></i><i></i></div></div>
-            <div class="room-poster">TODAY<br>IS A GOOD<br>DAY <span>♥</span></div>
-            <div class="room-shelf"><span>▥</span><span>▤</span><span>▯</span></div>
-            <div class="home-floor"></div>
-            <div class="plant"><div class="plant-leaves">✦</div><div class="plant-pot"></div></div>
-            <div class="machine" id="machine">
-              <div class="machine-top">DREAM<br><small>VENDING MACHINE</small></div>
-              <div class="machine-window"><span class="capsule cap1">♥</span><span class="capsule cap2">✿</span><span class="capsule cap3">★</span><span class="capsule cap4">☁</span><span class="capsule cap5">✦</span><span class="capsule cap6">♫</span></div>
-              <div class="machine-side"><span class="machine-indicator"></span><span class="machine-button"></span><span class="machine-coin">──</span></div>
-              <div class="machine-chute"><span id="drop-capsule" class="drop-capsule" aria-hidden="true">★</span></div>
-              <div class="machine-feet"></div>
-            </div>
-            <div class="mascot home-mascot" aria-label="小夢，小小藍色公仔"><span class="antenna"></span><span class="mascot-body"><span class="face"><i class="eye left"></i><i class="eye right"></i><i class="blush bleft"></i><i class="blush bright"></i><i class="mouth"></i></span></span><span class="arm left"></span><span class="arm right"></span><span class="leg left"></span><span class="leg right"></span></div>
-            <div class="little-message">你好呀！<span>♡</span></div>
+    <!-- Screen 01：對話式選單，整個主畫面只有小夢和販賣機 -->
+    <section class="screen is-active" id="screen-home" aria-label="選擇夢境">
+      <div class="home-room">
+        <div class="room-light"></div>
+        <div class="room-baseboard"></div>
+        <div class="room-floor"></div>
+        <div class="home-content">
+          <div class="dialogue-card" aria-live="polite">
+            <div class="dialogue-heading"><span class="speaking-dot"></span> 小夢說 <span class="dialogue-step" id="home-step">01 / 03</span></div>
+            <p class="dialogue-question" id="question">嗨嗨，我是小夢！你今天想去哪裡做夢呢？</p>
+            <div class="choices" id="choices"></div>
+            <button type="button" class="text-back" id="choice-back" hidden>← 上一題</button>
           </div>
-          <form id="dream-form" class="control-card">
-            <span class="card-eyebrow">CUSTOMIZE YOUR DREAM</span>
-            <h2>你的夢境訂單 <span>✎</span></h2>
-            <p class="control-hint">選一個目的地，剩下的交給夢境販賣機。</p>
-            <fieldset><legend>01　今天去哪裡？</legend><div class="option-grid scene-options">
-              <label><input type="radio" name="scene" value="random" checked><span>🎲<small>隨機驚喜</small></span></label>
-              <label><input type="radio" name="scene" value="forest"><span>🌲<small>森林小木屋</small></span></label>
-              <label><input type="radio" name="scene" value="castle"><span>🏰<small>雲之城堡</small></span></label>
-              <label><input type="radio" name="scene" value="ruins"><span>🏛️<small>神祕遺跡</small></span></label>
-            </div></fieldset>
-            <fieldset><legend>02　想要什麼氣氛？</legend><div class="option-grid tone-options">
-              <label><input type="radio" name="tone" value="random" checked><span>🎁<small>都可以</small></span></label>
-              <label><input type="radio" name="tone" value="funny"><span>😆<small>有點搞笑</small></span></label>
-              <label><input type="radio" name="tone" value="warm"><span>🧡<small>暖暖的</small></span></label>
-            </div></fieldset>
-            <button class="primary-btn" type="submit">領取我的夢境 <span>↗</span></button>
-            <p class="microcopy">✳ 不需登入・每個夢大約 20 秒</p>
-          </form>
+          <div class="character-home" id="character-home">
+            <svg viewBox="0 0 220 275" class="mascot-svg" role="img" aria-label="藍色圓滾滾的小夢"><use href="#art-dreamer"/></svg>
+          </div>
+          <div class="vending-home" id="vending-home">
+            <svg viewBox="0 0 310 470" class="vending-svg" role="img" aria-label="可愛的淡紫色夢境販賣機"><use href="#art-vending"/></svg>
+            <div class="button-glow" aria-hidden="true"></div>
+          </div>
         </div>
-      </section>
+        <p class="room-footnote">* 每一段夢，都有一點點不一樣。</p>
+      </div>
+    </section>
 
-      <section id="play-screen" class="screen play-screen hidden" aria-labelledby="play-title">
-        <div class="play-heading"><div><div class="eyebrow">✳ LITTLE DREAM THEATRE</div><h2 id="play-title">夢境正在製作中...</h2></div><button id="back-button" type="button" class="text-button">← 返回設定</button></div>
-        <div class="stage-frame">
-          <div id="stage" class="stage stage-vending" aria-label="夢境動畫舞台">
-            <div class="stage-sky"><span class="cloud a"></span><span class="cloud b"></span></div>
-            <div class="stage-land"></div>
-            <div class="background-set">
-              <div class="set-forest"><div class="tree t1"></div><div class="tree t2"></div><div class="cottage"><div class="roof"></div><div class="cottage-wall"><span class="window-light"></span><span class="door"></span></div></div><div class="bush bu1"></div><div class="bush bu2"></div></div>
-              <div class="set-castle"><div class="castle-tower ct1"></div><div class="castle-tower ct2"></div><div class="castle-main"><div class="castle-door"></div><span class="castle-flag">⚑</span></div><div class="castle-cloud c1"></div><div class="castle-cloud c2"></div></div>
-              <div class="set-ruins"><div class="ruin-column col1"></div><div class="ruin-column col2"></div><div class="ruin-arch"></div><div class="ruin-steps"></div><div class="ruin-vines">✿</div></div>
-            </div>
-            <div id="stage-vending-art" class="stage-vending-art">✳ <span>你的夢境正在打包...</span></div>
-            <div id="actor" class="stage-actor mascot"><span class="antenna"></span><span class="mascot-body"><span class="face"><i class="eye left"></i><i class="eye right"></i><i class="blush bleft"></i><i class="blush bright"></i><i class="mouth"></i></span></span><span class="arm left"></span><span class="arm right"></span><span class="leg left"></span><span class="leg right"></span></div>
-            <div id="friend" class="friend" aria-hidden="true"><span id="friend-emoji">🍄</span></div>
-            <div id="speech" class="speech hidden" aria-live="polite"></div>
-            <div id="stage-label" class="stage-label">夢境扭蛋製作中</div>
-          </div>
-          <div class="stage-bottom"><span id="stage-chapter">正在抽取夢境...</span><div class="progress-track"><div id="progress-bar" class="progress-fill"></div></div><span id="stage-clock">00:00</span></div>
+    <!-- Screen 02：抽夢動畫 -->
+    <section class="screen" id="screen-draw" aria-label="正在抽取夢境" hidden>
+      <div class="draw-panel">
+        <p class="eyebrow">DREAM IN PROGRESS</p>
+        <h1 class="draw-title">小夢正在幫你準備…</h1>
+        <div class="draw-art">
+          <svg viewBox="0 0 220 275" class="draw-mascot" aria-hidden="true"><use href="#art-dreamer"/></svg>
+          <svg viewBox="0 0 310 470" class="draw-machine" aria-hidden="true"><use href="#art-vending"/></svg>
+          <div class="capsule-drop" aria-hidden="true"><div class="capsule-top"></div><div class="capsule-bottom"></div></div>
         </div>
-        <div id="result-panel" class="result-panel hidden" aria-live="polite"><span class="result-stamp">DREAM COMPLETE ♡</span><h3 id="result-title">夢境結束啦！</h3><p id="result-copy"></p><div class="result-actions"><button type="button" class="primary-btn" id="replay-button">↻ 重播這個夢</button><button type="button" class="secondary-btn" id="again-button">✳ 再抽一個夢</button><button type="button" class="text-button" id="reset-button">返回設定</button></div></div>
-        <p class="footer-hint">每一個小夢，都是一次意想不到的相遇。</p>
-      </section>
-    </main>
-    <footer class="footer"><span>made with a little bit of daydreaming ☻</span><span>Dream Vending Machine · v1.0</span></footer>
-  </div>
+        <div class="mini-dialogue" id="draw-line" aria-live="polite">不知道這次會夢到什麼呢？</div>
+        <span class="draw-loading">製作夢境中 <span class="loading-dots">···</span></span>
+      </div>
+    </section>
+
+    <!-- Screen 03/04：故事與結尾共用舞台 -->
+    <section class="screen" id="screen-story" aria-label="夢境動畫" hidden>
+      <div class="story-layout">
+        <div class="story-header"><div><span class="eyebrow">TONIGHT'S LITTLE DREAM</span><h1 id="story-title">森林裡的小木屋</h1></div><div class="story-number" id="story-number">DREAM 001</div></div>
+        <div class="stage" id="stage" data-world="forest" data-phase="intro">
+          <svg class="stage-backdrop" viewBox="0 0 1000 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><use id="backdrop-use" href="#art-forest"/></svg>
+          <div class="stage-warmth" aria-hidden="true"></div>
+          <svg viewBox="0 0 220 275" class="story-character" id="story-character" aria-label="小夢"><use href="#art-dreamer"/></svg>
+          <svg viewBox="0 0 160 170" class="story-partner" id="story-partner" aria-label="夢境中的小夥伴"><use id="partner-use" href="#prop-lantern"/></svg>
+          <div class="dialogue-float from-hero" id="story-bubble" aria-live="polite"></div>
+          <div class="stage-caption" id="stage-caption">慢慢走進夢裡……</div>
+          <div class="ending-overlay" id="ending-overlay" hidden>
+            <div class="ending-inner">
+              <span class="ending-seal">✓ DREAM DELIVERED</span>
+              <h2>夢境結束啦 ♡</h2>
+              <p id="ending-summary"></p>
+              <div class="ending-actions"><button id="replay-btn" class="btn btn-main">↻ 再看一次</button><button id="new-btn" class="btn btn-cream">✳ 再抽一個夢</button><button id="home-btn" class="btn btn-link">回到小夢身邊 →</button></div>
+            </div>
+          </div>
+        </div>
+        <div class="story-footer"><div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div><span id="story-time">00:00 / 00:16</span></div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
