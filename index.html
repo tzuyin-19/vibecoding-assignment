@@ -5,8 +5,65 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#f7f3ee" />
   <title>Dream Vending Machine｜夢境販賣機</title>
-  <link rel="stylesheet" href="./style.css" />
-  <script src="./script.js" defer></script>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap');
+
+:root{--ink:#3d4c5c;--muted:#8a94a0;--lavender:#bcb0db;--blue:#aac8e6;--cream:#fbf8f1;--pink:#f3c3c6;--line:#e3dfe1;--shadow:0 18px 45px rgba(93,91,116,.12)}
+*{box-sizing:border-box}html{min-height:100%;background:#f7f4ef}body{margin:0;font-family:'Nunito','Noto Sans TC',sans-serif;color:var(--ink)}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #6d8da9;outline-offset:3px}.svg-library{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
+.app-shell{min-height:100svh;max-width:1440px;margin:auto;padding:24px 38px 28px;display:flex;flex-direction:column;gap:12px}
+.brandline{height:40px;flex-shrink:0;display:flex;justify-content:space-between;align-items:center;padding:0 8px;gap:12px}.brandmark{font-size:13px;font-weight:900;letter-spacing:.7px;text-transform:lowercase}.brandmark span:last-child{color:#a3a1ad;font-weight:600;letter-spacing:0}.logo-dot{display:inline-block;width:13px;height:13px;background:#b9aedb;border:3px solid #e8dff3;border-radius:50%;vertical-align:-1px;margin-right:9px;box-shadow:0 0 0 1px #9687b6}.brand-dot{margin:0 6px;color:#c7bfcb}.brand-aside{font-size:12px;color:#b2a5ac;letter-spacing:1px;font-weight:700}
+.screen{flex:1;display:none;min-height:0}.screen.is-active{display:block}.screen[hidden]{display:none!important}
+
+/* 首頁：只有小夢、販賣機與對話框。柔和的 3D 玩具場景。 */
+.home-room{height:calc(100svh - 113px);min-height:600px;max-height:920px;position:relative;overflow:hidden;background:linear-gradient(118deg,#f9f6f2 10%,#f1ecf0 55%,#e9e8ee 100%);border:1px solid #ece6e9;border-radius:30px;box-shadow:0 8px 35px rgba(116,102,113,.07),inset 0 1px 0 #fff}
+.home-room::before{content:"";position:absolute;left:5%;right:5%;top:7%;height:70%;border-radius:40%;background:radial-gradient(ellipse at center,#fffaf6 0%,transparent 69%);pointer-events:none}.room-light{position:absolute;right:4%;top:2%;width:65%;height:80%;background:radial-gradient(ellipse at 55% 46%,rgba(255,250,235,.88),transparent 66%)}.room-floor{position:absolute;inset:auto 0 0;height:25%;background:linear-gradient(180deg,#e7dfdb,#f5ebe3);border-top:2px solid #ded7d5}.room-baseboard{position:absolute;left:0;right:0;bottom:25%;height:9px;background:linear-gradient(#f7f1ea,#dcd0cb);box-shadow:0 4px 8px #cbbfba46;z-index:1}.home-content{position:absolute;inset:0;z-index:2}
+.character-home{position:absolute;bottom:7%;left:25%;width:25%;max-width:296px;min-width:194px;filter:drop-shadow(11px 17px 6px #7b7a7c24);transform-origin:50% 92%;animation:breathe 3.4s ease-in-out infinite}.mascot-svg{width:100%;height:auto;display:block;overflow:visible}.character-home.is-happy{animation:happyHop .72s ease}.vending-home{position:absolute;bottom:6%;right:16%;width:31%;min-width:242px;max-width:360px;filter:drop-shadow(14px 20px 9px #64627f29)}.vending-svg{display:block;width:100%;height:auto;overflow:visible}.vending-home.is-working{animation:vendingShake .32s ease-in-out infinite}.button-glow{position:absolute;top:44.5%;left:68.5%;height:5.2%;width:5.2%;border-radius:50%;background:#fff5cb66;box-shadow:0 0 23px 8px #fff5b1a6;opacity:.35;animation:glimmer 2.4s ease infinite;pointer-events:none}
+.dialogue-card{position:absolute;left:8%;top:11%;width:min(450px,48%);padding:25px 28px 24px;background:rgba(255,254,251,.95);border:2px solid #e9e2e7;border-radius:25px;box-shadow:0 16px 32px rgba(110,101,109,.10),inset 0 2px #fff;z-index:5;animation:cardIn .45s cubic-bezier(.18,.89,.32,1.3)}.dialogue-card:after{content:"";position:absolute;bottom:-20px;left:44%;width:28px;height:28px;background:#fffefa;border-right:2px solid #e9e2e7;border-bottom:2px solid #e9e2e7;transform:rotate(45deg)}.dialogue-heading{color:#a293b4;font-size:12px;font-weight:900;letter-spacing:1.1px;display:flex;align-items:center;gap:8px}.speaking-dot{height:9px;width:9px;border-radius:50%;background:#b3c7e0;box-shadow:0 0 0 4px #e9f0f8}.dialogue-step{margin-left:auto;color:#c3b8c6;font-size:11px;font-weight:700}.dialogue-question{font-size:clamp(18px,2vw,25px);font-weight:900;line-height:1.65;letter-spacing:.2px;margin:16px 0 20px}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.choice{appearance:none;min-height:48px;border-radius:15px;border:1px solid #e1dce5;background:#f7f4f9;color:#5b5875;font-size:14px;font-weight:800;padding:10px 8px;transition:background .16s ease,transform .16s ease,box-shadow .16s ease}.choice:nth-child(even){background:#f7f7f2;border-color:#e8e6df}.choice:hover{background:#e9e2f3;transform:translateY(-3px);box-shadow:0 6px 10px #8d7ca31f}.choice.choice-primary{grid-column:1/-1;background:#9384b7;color:#fff;border-color:#9384b7;font-size:16px}.choice.choice-primary:hover{background:#8272a7}.text-back{border:0;background:transparent;color:#a099aa;font-size:12px;font-weight:700;padding:10px 0 0;margin-top:4px}.text-back:hover{text-decoration:underline}.room-footnote{position:absolute;bottom:18px;left:28px;color:#b6aaa6;font-size:12px;font-weight:700;z-index:3}
+
+/* 販賣機抽取過場 */
+.draw-panel{height:calc(100svh - 113px);min-height:620px;max-height:920px;background:linear-gradient(155deg,#f5f2f1,#e9e4f1);border-radius:30px;border:1px solid #e9e4e8;text-align:center;position:relative;overflow:hidden;padding-top:clamp(35px,6vh,80px)}.eyebrow{font-size:11px;color:#a496b3;font-weight:900;letter-spacing:2.3px}.draw-title{margin:5px 0 0;font-size:clamp(22px,3vw,35px);font-weight:900}.draw-art{height:min(53vh,440px);min-height:350px;position:relative;margin:4px auto 0;max-width:710px}.draw-mascot{position:absolute;width:34%;height:auto;left:13%;bottom:4%;animation:pressButton 3.5s ease-in-out both;filter:drop-shadow(10px 12px 7px #6d6b8d24)}.draw-machine{position:absolute;width:45%;height:auto;right:14%;bottom:0;animation:vendingOnce 3.5s ease-in-out both;filter:drop-shadow(9px 14px 10px #5e61802b)}.capsule-drop{position:absolute;width:38px;height:38px;bottom:7%;right:36%;animation:dropCapsule 3.5s ease both;filter:drop-shadow(2px 6px 3px #5a64714d)}.capsule-top{height:50%;border-radius:38px 38px 0 0;background:#f7bfd0;border:2px solid #c59caf;border-bottom:0}.capsule-bottom{height:50%;border-radius:0 0 38px 38px;background:#ffefc6;border:2px solid #c59caf;border-top:1px solid #fff}.mini-dialogue{display:inline-block;background:#fffdf9;border:2px solid #e4dce7;border-radius:19px;padding:13px 20px;font-size:16px;font-weight:800;box-shadow:var(--shadow);max-width:90%}.draw-loading{display:block;margin-top:18px;color:#9e93aa;font-size:12px;font-weight:900;letter-spacing:2px}.loading-dots{display:inline-block;animation:glimmer 1s infinite}
+
+/* 故事舞台：每個場景由向量繪製，保留微立體玩具質感 */
+.story-layout{max-width:1040px;margin:0 auto;width:100%;padding-top:clamp(22px,5vh,60px)}.story-header{display:flex;justify-content:space-between;align-items:end;margin-bottom:20px;gap:16px}.story-header h1{font-size:clamp(22px,2.8vw,32px);margin:6px 0 0;font-weight:900}.story-number{border:1px solid #e2dce8;padding:8px 15px;border-radius:30px;background:#fffdfc;color:#9c8ba9;font-size:12px;font-weight:900;letter-spacing:1px}.stage{position:relative;aspect-ratio:16/9;border-radius:25px;overflow:hidden;background:#edf1e9;border:6px solid #fff;box-shadow:0 20px 54px #7f81942a,0 0 0 1px #e9e2e1;isolation:isolate}.stage-backdrop{position:absolute;inset:0;width:100%;height:100%}.stage-warmth{position:absolute;inset:0;background:linear-gradient(90deg,#fff8e81f,transparent 50%);pointer-events:none}.story-character{position:absolute;width:25%;height:57%;left:19%;bottom:6%;overflow:visible;filter:drop-shadow(7px 9px 4px #40495726);transition:transform .7s ease;animation:storyEntrance 1.8s both}.story-partner{position:absolute;width:22%;height:38%;left:60%;bottom:14%;overflow:visible;filter:drop-shadow(5px 6px 4px #3b45451d);opacity:0;transform:translateY(25px) scale(.9);transition:opacity .55s,transform .7s cubic-bezier(.19,.8,.27,1.1)}.stage[data-phase="event"] .story-character{animation:reactHop .9s 1 both}.stage[data-phase="event"] .story-partner,.stage[data-phase="ending"] .story-partner{opacity:1;transform:translateY(0) scale(1);animation:partnerFloat 2.8s ease-in-out infinite}.stage[data-phase="ending"] .story-character{animation:happyHop .8s 1 both}.stage[data-phase="ending"] .story-partner{animation:happyHop 1s 1 both}.dialogue-float{position:absolute;top:10%;left:11%;max-width:45%;min-width:24%;padding:13px 18px;border-radius:21px;background:#fffefa;border:2px solid #e6dce3;color:#526071;font-size:clamp(12px,1.7vw,20px);line-height:1.5;font-weight:900;box-shadow:0 9px 24px #6b758025;z-index:5;opacity:0;transform:scale(.85) translateY(8px);transition:opacity .23s,transform .35s}.dialogue-float.is-visible{opacity:1;transform:scale(1) translateY(0)}.dialogue-float:after{content:"";position:absolute;bottom:-14px;left:34px;width:19px;height:19px;transform:rotate(45deg);background:#fffefa;border-right:2px solid #e6dce3;border-bottom:2px solid #e6dce3}.dialogue-float.from-partner{left:auto;right:7%;top:11%}.dialogue-float.from-partner:after{left:auto;right:30px}.stage-caption{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);text-align:center;color:#555760b3;font-weight:900;white-space:nowrap;font-size:clamp(11px,1.3vw,15px);background:#fffefbc9;padding:5px 16px;border-radius:40px}.story-footer{display:flex;gap:15px;align-items:center;margin-top:16px}.progress-track{height:8px;background:#e9e2e8;border-radius:30px;overflow:hidden;flex:1}.progress-fill{width:0;height:100%;background:linear-gradient(90deg,#b2c7e4,#a997ca);transition:width .09s linear}.story-footer span{font-size:12px;color:#a3a0a7;font-weight:900;min-width:100px;text-align:right;font-variant-numeric:tabular-nums}
+.ending-overlay{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;background:#f9f4edcf;backdrop-filter:blur(6px);animation:cardIn .45s both}.ending-overlay[hidden]{display:none!important}.ending-inner{text-align:center;max-width:470px;padding:12px 20px}.ending-seal{display:inline-block;background:#e3eee6;color:#75907f;font-size:10px;letter-spacing:1.6px;font-weight:900;border-radius:30px;padding:8px 12px}.ending-inner h2{font-size:clamp(22px,3vw,39px);margin:10px 0;color:#64728d}.ending-inner p{font-size:clamp(13px,1.5vw,17px);line-height:1.65;margin:0 0 20px;font-weight:700}.ending-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:9px}.btn{border-radius:999px;border:0;font-size:13px;font-weight:900;min-height:44px;padding:11px 18px;box-shadow:0 4px 9px #6b75801a;transition:transform .16s}.btn:hover{transform:translateY(-2px)}.btn-main{color:#fff;background:#9387b9}.btn-cream{color:#647084;background:#fff;border:1px solid #e7dce7}.btn-link{color:#8a8193;background:transparent;box-shadow:none}
+@keyframes breathe{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-8px) rotate(1deg)}}
+@keyframes happyHop{0%,100%{transform:translateY(0)}30%{transform:translateY(-20px) rotate(-5deg)}60%{transform:translateY(0) rotate(5deg)}}
+@keyframes glimmer{0%,100%{opacity:.32}50%{opacity:1}}
+@keyframes cardIn{from{opacity:0;transform:translateY(15px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes vendingShake{0%,100%{transform:rotate(0)}25%{transform:rotate(-1.5deg)}75%{transform:rotate(1.5deg)}}
+@keyframes vendingOnce{0%,18%,68%,100%{transform:rotate(0)}30%,50%{transform:rotate(-2deg)}40%,60%{transform:rotate(2deg)}}
+@keyframes pressButton{0%,18%{transform:translateX(0)}32%,55%{transform:translateX(35px) rotate(7deg)}75%,100%{transform:translateX(0)}}
+@keyframes dropCapsule{0%,62%{opacity:0;transform:translateY(-110px) scale(.6)}70%{opacity:1}78%{transform:translateY(0) scale(1.15)}89%{transform:translateY(-22px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes storyEntrance{from{transform:translateX(-165%) translateY(12px);opacity:.4}to{transform:translateX(0);opacity:1}}
+@keyframes reactHop{0%,100%{transform:translateX(0)}40%{transform:translateY(-21px) translateX(-13px) rotate(-9deg)}70%{transform:translateX(-20px)}}
+@keyframes partnerFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+@media(max-width:850px){.app-shell{padding:15px 16px 20px}.brand-aside{display:none}.home-room,.draw-panel{height:calc(100svh - 91px)}.dialogue-card{left:5%;top:9%;width:53%;padding:20px}.dialogue-question{font-size:19px}.character-home{left:16%;width:31%}.vending-home{right:8%;width:39%}.story-layout{padding-top:30px}.stage{border-width:4px}.ending-inner{max-width:80%}}
+@media(max-width:600px){.app-shell{padding:10px;gap:8px}.brandline{height:35px}.brandmark{font-size:11px}.brand-dot{margin:0 2px}.home-room{min-height:690px;height:calc(100svh - 65px);max-height:none;border-radius:22px}.home-content{overflow:hidden}.dialogue-card{left:5%;top:7%;width:90%;padding:20px 18px 18px;border-radius:22px}.dialogue-card:after{left:24%;bottom:-12px;width:19px;height:19px}.dialogue-question{margin:12px 0 15px;font-size:18px}.choices{gap:8px}.choice{font-size:13px;min-height:45px;padding:9px 5px}.character-home{left:4%;bottom:10%;width:47%;min-width:0}.vending-home{right:2%;bottom:10%;width:54%;min-width:0}.room-floor{height:25%}.room-baseboard{bottom:25%}.room-footnote{bottom:10px;left:14px;font-size:10px}.draw-panel{min-height:650px;height:calc(100svh - 65px);border-radius:22px;padding-top:50px}.draw-art{height:380px;min-height:0}.draw-machine{width:58%;right:5%;bottom:8%}.draw-mascot{width:46%;left:0;bottom:10%}.capsule-drop{right:34%;bottom:14%}.mini-dialogue{font-size:14px}.story-layout{padding-top:12px}.story-header{margin-bottom:12px}.story-header h1{font-size:20px}.story-number{font-size:9px;padding:8px}.stage{aspect-ratio:4/5;border-radius:19px}.stage-backdrop{width:100%;height:100%;object-fit:cover}.story-character{width:45%;height:49%;left:4%;bottom:14%}.story-partner{width:37%;height:31%;left:57%;bottom:23%}.dialogue-float{top:13%;left:5%;max-width:66%;min-width:35%;font-size:15px;padding:11px 13px}.dialogue-float.from-partner{right:4%;max-width:62%;top:11%}.stage-caption{bottom:10px;white-space:normal;width:90%}.ending-inner{max-width:95%;padding:5px 10px}.ending-inner p{margin-bottom:14px}.ending-actions{gap:6px}.btn{font-size:12px;padding:9px 13px;min-height:42px}.story-footer{margin-top:12px}}
+@media(max-width:380px){.brandmark span:last-child{display:none}.choice{font-size:12px}.home-room{min-height:660px}.dialogue-card{top:6%}.character-home{bottom:13%}.vending-home{bottom:13%}.room-footnote{font-size:9px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;transition-duration:.001ms!important}.story-character{animation:none!important}.story-partner{animation:none!important}}
+
+/* v1.2 可用性修正：明確操作引導，確保選項醒目且與小夢分開 */
+.dialogue-card{left:5.5%;top:9%;width:min(510px,43%);padding:23px 25px 24px}
+.dialogue-question{margin:13px 0 6px;line-height:1.5;font-size:clamp(20px,2vw,27px)}
+.choice-hint{font-size:13px;color:#857399;font-weight:800;margin:0 0 15px;line-height:1.5}
+.choices{gap:12px}
+.choice{min-height:56px;background:#fffefa!important;border:2px solid #cfc2df!important;color:#4e4967!important;box-shadow:0 4px 0 #ece5f2;font-weight:900;font-size:14px;padding:10px 13px;text-align:left;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.choice::after{content:'→';color:#8270a8;font-weight:900;font-size:19px;flex:none}
+.choice:hover,.choice:focus-visible{background:#f0e9fa!important;border-color:#9887c7!important;box-shadow:0 5px 0 #ddd1ea;transform:translateY(-2px)}
+.choice:focus-visible{outline:3px solid #7f62af;outline-offset:3px}
+.choice.choice-primary{justify-content:center;background:#8872b4!important;border-color:#7d68a9!important;color:white!important;font-size:17px;min-height:60px;box-shadow:0 5px 0 #6e5c90;text-align:center}
+.choice.choice-primary::after{color:white}
+.choice.choice-primary:hover{background:#70589b!important;color:white!important}
+.loading-text{font-size:13px;color:#9b7c72}
+.character-home{left:39%;width:24%;max-width:302px}
+.vending-home{right:8%;width:30%;max-width:375px}
+@media (max-width:850px){.dialogue-card{left:4%;top:8%;width:52%;padding:18px}.character-home{left:30%;width:30%}.vending-home{right:4%;width:39%}.choice{min-height:50px;padding:8px 10px;font-size:13px}.choices{gap:8px}}
+@media (max-width:600px){.dialogue-card{left:5%;top:5%;width:90%;padding:18px 17px}.dialogue-question{font-size:19px}.choice-hint{font-size:12px;margin-bottom:12px}.choice{font-size:12px;min-height:50px;padding:8px 9px}.character-home{left:5%;bottom:7%;width:46%}.vending-home{right:2%;bottom:7%;width:53%}}
+@media (max-width:380px){.dialogue-card{top:4%}.choice{font-size:11px;min-height:47px;padding:8px}.choice::after{font-size:15px}}
+
+  </style>
+
 </head>
 <body>
   <!-- 所有美術均為內嵌 SVG。三個檔案放在同一層就能運行，不必再傳圖片。 -->
@@ -189,7 +246,7 @@
       <span class="brand-aside">a tiny dream, just for you.</span>
     </header>
 
-    <!-- Screen 01：對話式選單，整個主畫面只有小夢和販賣機 -->
+    <!-- Screen 01：對話式選單，直接顯示可點選的夢境目的地 -->
     <section class="screen is-active" id="screen-home" aria-label="選擇夢境">
       <div class="home-room">
         <div class="room-light"></div>
@@ -198,8 +255,9 @@
         <div class="home-content">
           <div class="dialogue-card" aria-live="polite">
             <div class="dialogue-heading"><span class="speaking-dot"></span> 小夢說 <span class="dialogue-step" id="home-step">01 / 03</span></div>
-            <p class="dialogue-question" id="question">嗨嗨，我是小夢！你今天想去哪裡做夢呢？</p>
-            <div class="choices" id="choices"></div>
+            <p class="dialogue-question" id="question">嗨！今天想去哪裡做夢？</p>
+            <p class="choice-hint" id="choice-hint">👇 點選下面一個地點，就可以繼續囉！</p>
+            <div class="choices" id="choices"><p class="loading-text">正在準備夢境選項……</p></div>
             <button type="button" class="text-back" id="choice-back" hidden>← 上一題</button>
           </div>
           <div class="character-home" id="character-home">
@@ -253,5 +311,153 @@
       </div>
     </section>
   </main>
+  <script>
+// Dream Vending Machine v1.1 — 純前端、無需 API/資料庫
+// 每局先鎖定抽取結果，重播完全相同的故事。
+const $ = (selector) => document.querySelector(selector);
+const screens = { home: $('#screen-home'), draw: $('#screen-draw'), story: $('#screen-story') };
+const question = $('#question'), choices = $('#choices'), stepTag = $('#home-step'), back = $('#choice-back'), hint = $('#choice-hint');
+const stage = $('#stage'), bubble = $('#story-bubble'), partnerUse = $('#partner-use');
+const storyTitle = $('#story-title'), caption = $('#stage-caption'), endingOverlay = $('#ending-overlay');
+const progressFill = $('#progress-fill'), storyTime = $('#story-time');
+const TOTAL = 16000, DRAW_TIME = 3600;
+const state = { step: 0, location: 'random', mood: 'random', dream: null, serial: 0, timers: [], interval: null };
+const random = (items) => items[Math.floor(Math.random() * items.length)];
+const locationNames = { forest:'森林裡的小木屋', castle:'雲之城堡', ruins:'神祕遺跡' };
+const moods = { funny:'搞笑', warm:'溫馨', random:'隨機' };
+
+// 六種事件 × 三組短對話 × 兩種結局；所有台詞都和角色相容。
+const events = {
+  forest: [
+    { id:'lantern', name:'怕黑的小燈精靈', partner:'小燈精靈', art:'prop-lantern',
+      lines:[['咦？你怎麼一直發抖？','因為天黑了！我可是燈欸！'],['小燈，你為什麼躲起來？','我正在練習勇敢……先等一下。'],['這裡的燈怎麼會說話？','噓！不要告訴黑暗我在這裡！']],
+      endings:{funny:['小燈精靈鑽進扭蛋，堅持搭便車回家。','我的車票呢？我怕黑車廂！'],warm:['小夢陪小燈坐了一會兒，整間木屋暖暖亮起。','原來有人陪，就沒那麼害怕了。']} },
+    { id:'mushroom', name:'偷偷散步的蘑菇', partner:'小蘑菇', art:'prop-mushroom',
+      lines:[['等等，那個蘑菇是不是動了？','沒有喔，我只是在換位置！'],['蘑菇也會散步嗎？','噓，我只是去買飲料。'],['你要去哪裡呀？','我去看看森林外面有沒有更軟的土。']],
+      endings:{funny:['蘑菇被抓包後，立刻假裝自己是盆栽。','我是盆栽，盆栽不會講話。'],warm:['蘑菇送給小夢一張手寫的森林晚安票。','下次再一起散步，好不好？']} }
+  ],
+  castle: [
+    { id:'cloud', name:'忘記飛的雲朵', partner:'小雲', art:'prop-cloud',
+      lines:[['你怎麼坐在地上？','我忘記怎麼飛了……'],['你不是雲嗎？','對啊！所以我也覺得很奇怪！'],['要不要先試著跳一下？','我昨天就試過了，還跌倒。']],
+      endings:{funny:['小雲宣布放棄飛行，決定靠兩隻不存在的腳走路。','用走的比較踏實！'],warm:['小夢輕輕推了一下，小雲慢慢飄回天空。','呀！我又記起來了！謝謝你！']} },
+    { id:'guard', name:'想放假的守衛', partner:'小守衛', art:'prop-guard',
+      lines:[['你怎麼坐在城堡門口？','我今天不想值班。'],['守衛不需要站好嗎？','我正在認真守護休息時間！'],['你在等誰呀？','等我的午休……已經三小時了。']],
+      endings:{funny:['守衛舉起小旗子，宣布整座城堡今天公休。','通知一下：今天誰都不用上班！'],warm:['小夢幫忙站了三秒，守衛開心地轉了一圈。','你真是全城堡最棒的代班！']} }
+  ],
+  ruins: [
+    { id:'statue', name:'愛打哈欠的石像', partner:'小石像', art:'prop-statue',
+      lines:[['石像怎麼突然打哈欠？','站太久了，腿有點痠。'],['你不是應該一動也不動？','我已經站了九十九年了耶。'],['石像也會想睡覺嗎？','會啊，只是沒人發現我閉眼。']],
+      endings:{funny:['石像伸個懶腰，決定再站一百年。','再站一下就好，真的。'],warm:['石像把一枚小小通行章送給小夢。','謝謝你陪老石頭說話。']} },
+    { id:'pebble', name:'迷路的小精靈石', partner:'小精靈石', art:'prop-pebble',
+      lines:[['你怎麼一直在轉圈圈？','我找不到自己的家啦！'],['你記得家在哪嗎？','好像在有很多石頭的地方……'],['你怎麼跑來這裡的？','我滾太快，結果忘了停！']],
+      endings:{funny:['小石頭決定不找家了，跟著小夢一起旅行。','反正你走到哪，我就滾到哪！'],warm:['小夢把小石頭送回祭壇，遺跡亮起溫暖的光。','我到家了！這次一定記住路！']} }
+  ]
+};
+const introductions = { forest:'這間小木屋好安靜喔……', castle:'雲朵踩起來，居然軟軟的。', ruins:'這裡藏著什麼故事呢？' };
+const drawLines = ['這次會抽到什麼夢呢？','嘿嘿，我幫你偷偷挑一顆！','先說好，我也不知道裡面是什麼喔。'];
+
+function switchScreen(name){
+  Object.entries(screens).forEach(([key,element]) => { const active = key === name; element.hidden = !active; element.classList.toggle('is-active',active); });
+}
+function clearPlayback(){
+  state.timers.forEach(clearTimeout); state.timers=[];
+  if(state.interval) clearInterval(state.interval);
+  state.interval=null;
+}
+function later(callback,ms){state.timers.push(setTimeout(callback,ms));}
+function setStep(step){state.step=step;renderChoices();}
+function chooseScene(location){state.location=location; $('#character-home').classList.remove('is-happy');void $('#character-home').offsetWidth;$('#character-home').classList.add('is-happy');setStep(1);}
+function chooseMood(mood){state.mood=mood;setStep(2);}
+function button(label,handler,primary=false){const el=document.createElement('button');el.type='button';el.className='choice'+(primary?' choice-primary':'');el.setAttribute('aria-label',label);el.textContent=label;el.addEventListener('click',handler);return el;}
+function renderChoices(){
+  choices.replaceChildren();
+  back.hidden = state.step===0;
+  stepTag.textContent = `${String(state.step+1).padStart(2,'0')} / 03`;
+  if(state.step===0){
+    question.textContent='嗨！今天想去哪裡做夢？';
+    hint.textContent='👇 點選下面一個地點，就可以繼續囉！';
+    [['🌲 森林小木屋','forest'],['☁ 雲之城堡','castle'],['🏛 神祕遺跡','ruins'],['✳ 交給命運','random']].forEach(([label,id]) => choices.append(button(label,()=>chooseScene(id))));
+  } else if(state.step===1){
+    question.textContent='好耶！那這個夢想要什麼感覺？';
+    hint.textContent='👇 再選一個喜歡的氣氛吧！';
+    [['哈哈大笑','funny'],['暖暖的','warm'],['隨機就好','random']].forEach(([label,id]) => choices.append(button(label,()=>chooseMood(id))));
+  } else {
+    const locationText=state.location==='random'?'神祕地點':locationNames[state.location];
+    question.textContent=`收到！${locationText} × ${moods[state.mood]}，一起出發吧！`;
+    hint.textContent='✨ 設定完成，按下紫色按鈕開始抽夢！';
+    choices.append(button('開始抽夢！ ✳',newDream,true));
+  }
+}
+back.addEventListener('click',()=>setStep(Math.max(0,state.step-1)));
+
+function newDream(){
+  clearPlayback();
+  const world=state.location==='random'?random(Object.keys(locationNames)):state.location;
+  const event=random(events[world]);
+  const tone=state.mood==='random'?random(['funny','warm']):state.mood;
+  state.serial++;
+  state.dream={world,event,tone,exchange:random(event.lines),ending:event.endings[tone],number:state.serial};
+  startDraw();
+}
+function startDraw(){
+  clearPlayback();
+  switchScreen('draw');
+  $('#draw-line').textContent=random(drawLines);
+  // 重啟 CSS 動畫，確保連續抽取也會正常播放。
+  const panel=$('.draw-art');panel.style.animation='none';void panel.offsetWidth;panel.style.animation='';
+  $('.draw-mascot').style.animation='none';$('.draw-machine').style.animation='none';$('.capsule-drop').style.animation='none';
+  void $('.draw-mascot').offsetWidth;
+  for(const sel of ['.draw-mascot','.draw-machine','.capsule-drop']) $(sel).style.animation='';
+  later(playCurrentDream,DRAW_TIME);
+}
+function showBubble(text,partner=false){
+  bubble.textContent=text;
+  bubble.className='dialogue-float '+(partner?'from-partner':'from-hero');
+  void bubble.offsetWidth;
+  bubble.classList.add('is-visible');
+}
+function phase(name){stage.dataset.phase=name;}
+function playCurrentDream(){
+  if(!state.dream)return;
+  clearPlayback();
+  const {world,event,exchange,ending,number}=state.dream;
+  switchScreen('story');
+  endingOverlay.hidden=true;
+  stage.dataset.world=world;
+  $('#backdrop-use').setAttribute('href','#art-'+world);
+  partnerUse.setAttribute('href','#'+event.art);
+  storyTitle.textContent=locationNames[world];
+  $('#story-number').textContent='DREAM '+String(number).padStart(3,'0');
+  $('#ending-summary').textContent=ending[0];
+  bubble.className='dialogue-float';bubble.textContent='';
+  caption.textContent='慢慢走進夢裡……';phase('intro');progressFill.style.width='0%';
+  // 移除再加回元素上的動畫，以重置每次重播的進場效果。
+  const character=$('#story-character'); character.style.animation='none'; void character.offsetWidth;character.style.animation='';
+  showBubble(introductions[world]);
+  later(()=>{bubble.classList.remove('is-visible');},3200);
+  later(()=>{phase('event'); caption.textContent='咦？遇見了'+event.partner+'！';},4000);
+  later(()=>showBubble('小夢：'+exchange[0],false),4550);
+  later(()=>showBubble(event.partner+'：'+exchange[1],true),7600);
+  later(()=>{phase('ending');caption.textContent=ending[0];showBubble(event.partner+'：'+ending[1],true);},11200);
+  later(()=>{bubble.classList.remove('is-visible');},14500);
+  later(finishDream,TOTAL);
+  const begin=performance.now();
+  state.interval=setInterval(()=>{
+    const elapsed=Math.min(TOTAL,performance.now()-begin);
+    progressFill.style.width=`${elapsed/TOTAL*100}%`;
+    const second=String(Math.floor(elapsed/1000)).padStart(2,'0');
+    storyTime.textContent=`00:${second} / 00:16`;
+  },80);
+}
+function finishDream(){
+  clearPlayback();progressFill.style.width='100%';storyTime.textContent='00:16 / 00:16';
+  endingOverlay.hidden=false;
+}
+$('#replay-btn').addEventListener('click',playCurrentDream);
+$('#new-btn').addEventListener('click',newDream);
+$('#home-btn').addEventListener('click',()=>{clearPlayback();switchScreen('home');setStep(2);});
+renderChoices();switchScreen('home');
+
+  </script>
 </body>
 </html>
